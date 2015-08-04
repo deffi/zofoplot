@@ -1,0 +1,65 @@
+The first draft (in Ruby) did not have style(s):
+
+    squares_chart=Chart.create {
+      title "Squares!"
+      x_axis { range 0,5 ; title "n"   }
+      y_axis { range 0,25; title "n^2" }
+
+      data_sets.add {
+        x [0, 1, 2, 3,  4,  5]
+        y [0, 1, 4, 9, 16, 25]
+
+        lines  { color "#7f7f7f"; width 2 }
+        points { shape :square; size 5 }
+      }
+    }
+        
+    squares_chart.render "squares_chart.png"  # For quickly viewing
+    squares_chart.render "squares_chart.eps"  # For LaTeX
+    squares_chart.render "squares_chart.pdf"  # For pdfLaTeX
+    squares_chart.render "squares_chart.emf"  # For Microsoft Office
+    squares_chart.render "squares_chart.svg"  # For the web
+
+
+
+Or:
+    degree=Math::PI/180
+
+    include ZofoPlot
+
+    quadratic_points=(0..5).map { |x| DefaultPoint.new(x, x**2) }
+    quadratic_points[4].y_range=[13, 17]
+    linear_points=(0..5).map { |x| DefaultPoint.new(x, 5*x) }
+
+    linear_data_set=DataSet.create {
+        points linear_points
+        line_style  { color "#7fff00"; width 2  }
+        point_style { color "#7f00ff"; shape :filled_triangle_down }
+        title "Linear"
+    }
+
+    quadratic_data_set=DataSet.create {
+        points      quadratic_points
+        line_style  { color "#ff7f00"; width 1  }
+        point_style { color "#7f00ff"; shape :filled_triangle_up }
+    }
+
+    lines_chart=Chart.create {
+        title "Some chart"
+        x_axis { range [-0.5, 5.5] ; label "All right"; tics {
+            visible true
+        } }
+        y_axis { range [0, 35]     ; label "Updog"; tics {
+            visible true
+        } }
+        data_sets << quadratic_data_set
+        data_sets << linear_data_set
+
+        data_sets << DataSet.create {
+            points [[1,5], [3,5], [5,5]].map { |x,y| DefaultPoint.new(x,y) }
+            point_style { shape :open_diamond }
+        }
+    }
+
+
+
