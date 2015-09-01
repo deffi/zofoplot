@@ -51,4 +51,3 @@ class Point(Element):
 
     def children(self):
         return []
-    
