@@ -1,42 +1,52 @@
-# TODO: attribute is a Python term, use a different one (e. g. property)
-class Attribute:
-    def __init__(self, name, default = None, inherit = False):
+# So we have two ways of storing the values:
+#   * in the Style class => the Style class is a container
+#   * in a dict in the StyleContainer => the Style class ist just a descriptor.
+#     This means that we can reuse the Style list for all instances of the same
+#     Element.
+# We'll go with the container approach for now.
+
+# A descriptor for a style; for example, "color" might be a Property of a line,
+# and it might be inherited from its parent.
+class Style:
+    def __init__(self, name, inherit, default):
         self.name = name
-        self.default = default
         self.inherit = inherit
+        self.default = default
+        
+        self.value = None
 
     def dump(self, indent_prefix = ""):
-        print(indent_prefix + "%s: %s")
+        print(indent_prefix + "%s: %s" % (self.name, self.value))
 
+# A container for several Styles. Each Element has a StyleContainer,
+# populated with all of its properties.
 class StyleContainer:
-    def __init__(self, attribute_list):
-        self.attribute_list = attribute_list
-        self.attribute_dict = { a.name: a    for a in attribute_list }
-        self.value_dict     = { a.name: None for a in attribute_list } 
+    def __init__(self, style_list):
+        # We keep a list of styles because we want to retain their order
+        self.style_list = style_list
+        # We keep a dictionary of style by name becase we want to access them
+        # by name.
+        self.style_dict = { s.name: s for s in self.style_list }
 
     def has_style(self, name):
-        return (name in self.attribute_dict) 
+        return (name in self.style_dict) 
 
-    def set_style(self, name, value):
-        if not name in self.attribute_dict:
-            raise AttributeError
-        
-        self.value_dict[name] = value
-    
     def get_style(self, name):
-        if not name in self.attribute_dict:
+        if not name in self.style_dict:
             raise AttributeError
 
-        return self.value_dict[name]
+        return self.style_dict[name]
     
     def dump(self, indent_prefix = ""):
-        for attribute in self.attribute_list:
-            name = attribute.name
-            value = self.value_dict[name]
-            print(indent_prefix + "%s: %s" % (name, value))
+        for style in self.style_list:
+            style.dump(indent_prefix)
             
         
-    
+# A shortcut for accessing a property from a StyleContainer with
+#     line.style.width = 2
+# instead of
+#     line.styles.style("width").value = 2
+# TODO styles with dashes
 class StyleAccessor:
     def __init__(self, container):
         # Setting _container directly would result in a call to __setattr__,
@@ -44,24 +54,24 @@ class StyleAccessor:
         self.__dict__["_container"] = container
 
     def __getattr__(self, name):
-        return self._container.get_style(name)
+        return self._container.get_style(name).value
     
     def __setattr__(self, name, value):
-        self._container.set_style(name, value)
+        self._container.get_style(name).value = value
 
-
-line_attributes = [
-    Attribute("color"),
-    Attribute("width"),
-    Attribute("dash-type"),
-    ]
-
-style_container = StyleContainer(line_attributes)
-style = StyleAccessor(style_container)
-
-style.color = "red"
-style.width = 4
-
-style_container.dump()
-print(style.color, style.width)
+if __name__ == "__main__":
+    line_styles = [
+        Style("color"    , False, None),
+        Style("width"    , False, None),
+        Style("dash-type", False, None),
+        ]
+    
+    style_container = StyleContainer(line_styles)
+    style = StyleAccessor(style_container)
+    
+    style.color = "red"
+    style.width = 4
+    
+    style_container.dump("* ")
+    print(style.color, style.width)
 
