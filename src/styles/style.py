@@ -30,8 +30,13 @@ if __name__ == "__main__":
     style_container = StyleContainer(line_styles)
     style = StyleAccessor(style_container)
     
+    # Set properties in different ways
     style.color = "red"
-    style.width = 4
+    style["width"] = 4
     
+    # Dump the container
     style_container.dump("* ")
+    
+    # Get properties in different ways
     print(style.color, style.width)
+    print(style["color"], style["width"])
