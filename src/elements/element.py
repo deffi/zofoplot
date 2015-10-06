@@ -1,4 +1,4 @@
-from style import Style, StyleContainer, StyleAccessor
+from styles import StyleContainer, StyleAccessor
 
 # Anything that can by styled
 class Element:
@@ -45,55 +45,3 @@ class Element:
         for child in self.children():
             child.dump(indentString, indentLevel + 1)
 
-class Chart(Element):
-    ### Initialization
-    def __init__(self, classes = None, id_ = None):
-        styles = [
-            Style("background_color", False, None),
-            ]
-        super(Chart, self).__init__(styles, classes, id_)
-        self.serien = []
-        
-    ### Element methods
-    def children(self):
-        return self.serien
-        
-    ### Child handling
-    def add_series(self, series):
-        self.serien.append(series)
-        
-    def create_series(self, *args, **kwargs):
-        self.add_series(Series(*args, **kwargs))
-
-
-class Series(Element):
-    ### Initialization
-    def __init__(self, classes = None, id_ = None, x = None, y = None):
-        styles = [
-            Style("color"     , False, None),
-            Style("shape"     , False, None),
-            Style("line-width", False, None)
-            ]
-        super(Series, self).__init__(styles, classes, id_)
-        
-        self.points = [Point(None, None, px, py) for px, py in zip(x, y)]
-        
-    ### Element methods
-    def children(self):
-        return self.points
-
-class Point(Element):
-    ### Initialization
-    def __init__(self, classes = None, id_ = None, x = None, y = None):
-        styles = [
-            Style("color", True, None),
-            Style("shape", True, None),
-            Style("size" , False, None) # TODO inherit this from point-size?
-            ]
-        super(Point, self).__init__(styles, classes, id_)
-        self.x = x
-        self.y = y
-
-    ### Element methods
-    def children(self):
-        return []

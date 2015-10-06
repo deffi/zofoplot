@@ -1,4 +1,4 @@
-from element import Chart, Series
+from elements import Chart, Series
  
 # Create a chart with some series
 chart = Chart()
