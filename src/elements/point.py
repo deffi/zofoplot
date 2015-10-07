@@ -3,13 +3,13 @@ from styles import Style
 
 class Point(Element):
     ### Initialization
-    def __init__(self, classes = None, id_ = None, x = None, y = None):
+    def __init__(self, parent, classes = None, id_ = None, x = None, y = None):
         styles = [
-            Style("color", True, None),
-            Style("shape", True, None),
-            Style("size" , False, None) # TODO inherit this from point-size?
+            Style(self, "color", True, None),
+            Style(self, "shape", True, None),
+            Style(self, "size" , False, None) # TODO inherit this from point-size?
             ]
-        super(Point, self).__init__(styles, classes, id_)
+        super(Point, self).__init__(parent, styles, classes, id_)
         self.x = x
         self.y = y
 

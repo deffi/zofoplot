@@ -8,7 +8,7 @@ class StyleContainer:
         self.style_list = style_list
         # We keep a dictionary of style by name becase we want to access them
         # by name.
-        self.style_dict = { s.name: s for s in self.style_list }
+        self.style_dict = { s.get_name(): s for s in self.style_list }
 
     def has_style(self, name):
         return (name in self.style_dict) 

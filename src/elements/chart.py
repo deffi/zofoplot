@@ -4,11 +4,11 @@ from .series import Series
 
 class Chart(Element):
     ### Initialization
-    def __init__(self, classes = None, id_ = None):
+    def __init__(self, parent = None, classes = None, id_ = None):
         styles = [
-            Style("background_color", False, None),
+            Style(self, "background_color", False, None),
             ]
-        super(Chart, self).__init__(styles, classes, id_)
+        super(Chart, self).__init__(parent, styles, classes, id_)
         self.serien = []
         
     ### Element methods
