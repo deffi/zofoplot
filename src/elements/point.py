@@ -7,7 +7,7 @@ class Point(Element):
         styles = [
             StyleValue(self, "color", True, None),
             StyleValue(self, "shape", True, None),
-            StyleValue(self, "size" , False, None) # TODO inherit this from point-size?
+            StyleValue(self, "size" , False, None)
             ]
         super(Point, self).__init__(parent, styles, classes, id_)
         self.x = x
