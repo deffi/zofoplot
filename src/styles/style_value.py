@@ -1,15 +1,8 @@
 import warnings
 
-# So we have two ways of storing the values:
-#   * in the Style class => the Style class is a container
-#   * in a dict in the StyleContainer => the Style class ist just a descriptor.
-#     This means that we can reuse the Style list for all instances of the same
-#     Element.
-# We'll go with the container approach for now.
-
 # A descriptor for a style; for example, "color" might be a Property of a line,
 # and it might be inherited from its parent.
-class Style:
+class StyleValue:
     def __init__(self, element, name, inherit, default):
         self._element = element
         self._name    = name

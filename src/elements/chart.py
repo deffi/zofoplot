@@ -1,4 +1,4 @@
-from styles import Style
+from styles import StyleValue
 from .element import Element
 from .series import Series
 
@@ -6,7 +6,7 @@ class Chart(Element):
     ### Initialization
     def __init__(self, parent = None, classes = None, id_ = None):
         styles = [
-            Style(self, "background_color", False, None),
+            StyleValue(self, "background_color", False, None),
             ]
         super(Chart, self).__init__(parent, styles, classes, id_)
         self.serien = []
