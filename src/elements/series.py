@@ -1,4 +1,4 @@
-from styles import StyleValue
+from style import StyleValue
 from .element import Element
 from .point import Point
 

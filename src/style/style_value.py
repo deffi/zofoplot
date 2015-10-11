@@ -63,12 +63,12 @@ class StyleValue:
 
 
 if __name__ == "__main__":
-    from styles import StyleContainer, StyleAccessor
+    from style import StyleContainer, StyleAccessor
     
     line_styles = [
-        Style(None, "color"    , False, None),
-        Style(None, "width"    , False, None),
-        Style(None, "dash-type", False, None),
+        StyleValue(None, "color"    , False, None),
+        StyleValue(None, "width"    , False, None),
+        StyleValue(None, "dash-type", False, None),
         ]
     
     style_container = StyleContainer(line_styles)

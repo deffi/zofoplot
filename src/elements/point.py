@@ -1,5 +1,5 @@
 from elements import Element
-from styles import StyleValue
+from style import StyleValue
 
 class Point(Element):
     ### Initialization

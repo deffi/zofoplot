@@ -1,4 +1,4 @@
-from styles import StyleContainer, StyleAccessor
+from style import StyleContainer, StyleAccessor
 
 # Anything that can by styled
 class Element:
