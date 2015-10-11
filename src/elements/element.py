@@ -1,4 +1,4 @@
-from style import StyleValue, StyleContainer, StyleAccessor
+from style import StyleContainer, StyleAccessor
 
 # Anything that can by styled
 class Element:
@@ -7,9 +7,12 @@ class Element:
     def __init__(self, parent, style_descriptors, classes = None, id_ = None):
         self._parent = parent
         
-        styles = [StyleValue(self, sd.name, sd.inherit) for sd in style_descriptors]
+        if parent:
+            parent_style_container = parent.style_container
+        else:
+            parent_style_container = None
         
-        self.style_container = StyleContainer(styles)
+        self.style_container = StyleContainer(style_descriptors, parent_style_container)
         self.style = StyleAccessor(self.style_container)
 
         self.classes = classes or []

@@ -21,6 +21,6 @@ class Chart(Element):
         self.serien.append(series)
         
     def create_series(self, *args, **kwargs):
-        self.add_series(Series(*args, **kwargs))
-
-
+        series = Series(self, *args, **kwargs)
+        self.add_series(series)
+        return series
