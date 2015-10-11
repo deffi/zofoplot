@@ -1,14 +1,15 @@
-from style import StyleValue
-from .element import Element
+from style import StyleDescriptor
+from elements import Element
 from .series import Series
+
+chart_styles = [
+    StyleDescriptor("background_color", False)
+    ]
 
 class Chart(Element):
     ### Initialization
     def __init__(self, parent = None, classes = None, id_ = None):
-        styles = [
-            StyleValue(self, "background_color", False, None),
-            ]
-        super(Chart, self).__init__(parent, styles, classes, id_)
+        super(Chart, self).__init__(parent, chart_styles, classes, id_)
         self.serien = []
         
     ### Element methods

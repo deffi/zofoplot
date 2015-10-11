@@ -3,11 +3,10 @@ import warnings
 # A descriptor for a style; for example, "color" might be a Property of a line,
 # and it might be inherited from its parent.
 class StyleValue:
-    def __init__(self, element, name, inherit, default):
+    def __init__(self, element, name, inherit):
         self._element = element
         self._name    = name
         self._inherit = inherit
-        self._default = default
         
         self.value = None
 
@@ -66,9 +65,9 @@ if __name__ == "__main__":
     from style import StyleContainer, StyleAccessor
     
     line_styles = [
-        StyleValue(None, "color"    , False, None),
-        StyleValue(None, "width"    , False, None),
-        StyleValue(None, "dash-type", False, None),
+        StyleValue(None, "color"    , False),
+        StyleValue(None, "width"    , False),
+        StyleValue(None, "dash-type", False),
         ]
     
     style_container = StyleContainer(line_styles)

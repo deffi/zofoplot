@@ -1,11 +1,13 @@
-from style import StyleContainer, StyleAccessor
+from style import StyleValue, StyleContainer, StyleAccessor
 
 # Anything that can by styled
 class Element:
     # classes: a list of object classes. If nothing is passed, an empty list
     # will be used.
-    def __init__(self, parent, styles, classes = None, id_ = None):
+    def __init__(self, parent, style_descriptors, classes = None, id_ = None):
         self._parent = parent
+        
+        styles = [StyleValue(self, sd.name, sd.inherit) for sd in style_descriptors]
         
         self.style_container = StyleContainer(styles)
         self.style = StyleAccessor(self.style_container)

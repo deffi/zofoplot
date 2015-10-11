@@ -1,16 +1,17 @@
-from style import StyleValue
-from .element import Element
+from style import StyleDescriptor
+from elements import Element
 from .point import Point
+
+series_styles = [
+    StyleDescriptor("color"     , False),
+    StyleDescriptor("shape"     , False),
+    StyleDescriptor("line-width", False)
+    ]
 
 class Series(Element):
     ### Initialization
     def __init__(self, parent, classes = None, id_ = None, x = None, y = None):
-        styles = [
-            StyleValue(self, "color"     , False, None),
-            StyleValue(self, "shape"     , False, None),
-            StyleValue(self, "line-width", False, None)
-            ]
-        super(Series, self).__init__(parent, styles, classes, id_)
+        super(Series, self).__init__(parent, series_styles, classes, id_)
         
         self.points = [Point(self, None, None, px, py) for px, py in zip(x, y)]
         
