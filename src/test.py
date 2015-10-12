@@ -1,4 +1,5 @@
 from elements import Chart
+from renderer.dumper import Dumper
  
 # Create a chart with some series
 chart = Chart(None)
@@ -10,7 +11,7 @@ chart.style.background_color = "white"
 chart.serien[0].style.color = "red"
  
 # Show the chart with all properties
-chart.dump()
+Dumper().dump(chart)
  
 # Set a style sheet
  
